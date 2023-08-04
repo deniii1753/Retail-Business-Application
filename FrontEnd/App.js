@@ -1,7 +1,8 @@
-import { Image, Dimensions, StyleSheet, Text, View, Pressable } from 'react-native';
+import { Image, Dimensions, StyleSheet, Text, View, Pressable, StatusBar } from 'react-native';
 import Logo from './Components/Logo';
 
 export default function App() {
+  console.log(StatusBar.currentHeight);
   return (
     <View style={styles.container}>
       <Logo />
@@ -32,11 +33,12 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: StatusBar.currentHeight,
     flex: 1,
     backgroundColor: '#202020',
     justifyContent: 'flex-start',
     paddingHorizontal: 20,
-    paddingVertical: 5
+    paddingVertical: 5,
   },
 
   listContainer: {
