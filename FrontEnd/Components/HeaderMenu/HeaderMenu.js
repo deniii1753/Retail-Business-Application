@@ -5,12 +5,12 @@ export default function HeaderMenu({pageName}) {
     const navigation = useNavigation();
 
     function redirectToAnotherPage(page) {
-        if (page === 'Home') return navigation.navigate(page)
+        if (page === 'Home') return navigation.navigate(page);
         return navigation.goBack();
     }
     return (
         <View style={styles.container}>
-            <Pressable onPress={redirectToAnotherPage.bind(null, 'null')}>
+            <Pressable onPress={redirectToAnotherPage.bind(null, undefined)}>
                 <Image source={require('../../assets/back-arrow.png')} style={styles.icons}></Image>
             </Pressable>
             <Text style={styles.pageName}>{pageName}</Text>
@@ -29,7 +29,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginBottom: 25
     },
 
     icons: {
