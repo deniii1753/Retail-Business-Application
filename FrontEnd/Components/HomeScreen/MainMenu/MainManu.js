@@ -3,10 +3,14 @@ import { Dimensions, Image, Pressable, StyleSheet, Text, View } from 'react-nati
 
 export default function MainMenu() {
     const navigation = useNavigation();
-    console.log(navigation);
+
+    function redirectUser(screen) {        
+        return navigation.navigate(screen)
+    }
+
     return (
         <View style={styles.listContainer}>
-        <Pressable style={styles.containerWrapper}>
+        <Pressable style={styles.containerWrapper} onPress={redirectUser.bind(this, 'NewOrder')}>
             <Image source={require('../../../assets/new-order.png')} style={styles.icon} />
             <Text>Нова Поръчка</Text>
         </Pressable>
