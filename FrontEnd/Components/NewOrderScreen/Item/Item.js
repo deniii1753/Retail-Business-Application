@@ -1,6 +1,26 @@
-import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useState } from 'react';
+import { Dimensions, Image, Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function Item({ item, selectProductHandler, changeProductQuantityHandler }) {
+    const [qty, setQty] = useState(0);
+
+    function quantityChangeHandler(quantity) {
+        return setQty(quantity)
+    }
+
+    function confirmClickHandler() {
+        changeProductQuantityHandler(item._id, qty);
+        item.selected = true;
+        selectProductHandler(item);
+        return setQty(0);
+    }
+
+    function cancelPressHandler() {
+        item.quantity = 0;
+        item.selected = true;
+        return selectProductHandler(item);
+    }
+
     return (
         <>
             <Pressable onPress={selectProductHandler.bind(null, item)}>
@@ -11,7 +31,7 @@ export default function Item({ item, selectProductHandler, changeProductQuantity
                         <View style={styles.description}>
                             <Text style={styles.productDescriptionText}>Цена: {(item.price).toFixed(2)}лв.</Text>
                             <Text style={styles.productDescriptionText}>Количество: {item.quantity}</Text>
-                            
+
                         </View>
                     </View>
                     <Image source={require('../../../assets/add-item.png')} style={styles.addItemImage} />
@@ -20,21 +40,20 @@ export default function Item({ item, selectProductHandler, changeProductQuantity
 
             {item.selected &&
                 <View style={styles.additionalMenu}>
-                    <View style={styles.buttonContainer}>
-                        <Text style={styles.buttonText}>-</Text>
-                    </View>
+                    <Pressable onPress={cancelPressHandler} style={styles.buttonContainer}>
+                        <Text style={styles.buttonText}>X</Text>
+                    </Pressable>
                     <TextInput
-                        defaultValue={item.quantity.toString()}
-                        value={item.quantity.toString()}
                         keyboardType="numeric"
                         style={styles.typeField}
-                        onChangeText={changeProductQuantityHandler.bind(null, item._id)}
+                        onChangeText={quantityChangeHandler}
                         autoFocus={true}
+                        // onBlur={productBlurHandler}
 
                     />
-                    <View style={styles.buttonContainer}>
-                        <Text style={styles.buttonText}>+</Text>
-                    </View>
+                    <Pressable style={styles.buttonContainer} onPress={confirmClickHandler}>
+                        <Image source={require('../../../assets/agree.png')} style={styles.agreeImage} />
+                    </Pressable>
                 </View>
             }
         </>
@@ -96,13 +115,20 @@ const styles = StyleSheet.create({
         borderColor: 'orange',
         borderRadius: 10,
         borderWidth: 2,
-        width: '15%'
+        width: '15%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     buttonText: {
         textAlign: 'center',
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#fff',
+    },
+    agreeImage: {
+        width: 25,
+        height: 25,
     },
     typeField: {
         width: '50%',

@@ -1,4 +1,4 @@
-import { Button, Dimensions, FlatList, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList } from "react-native";
 import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import { useState } from "react";
 import Item from "./Item/Item";
@@ -8,6 +8,7 @@ export default function NewOrderScreen() {
     const [products, setProducts] = useState(productss);
 
     function selectProductHandler(product) {
+        console.log(product.selected);
         return setProducts((oldProducts) => {
             return oldProducts.map(x => {
                 if (x._id === product._id) {
@@ -44,7 +45,7 @@ export default function NewOrderScreen() {
                     />
                 }}
                 keyExtractor={item => item._id}
-                keyboardShouldPersistTaps='always'
+                keyboardShouldPersistTaps='never'
             />
         </>
     );
