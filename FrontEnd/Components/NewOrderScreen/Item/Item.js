@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Dimensions, Image, Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Item({ item, selectProductHandler, changeProductQuantityHandler }) {
     const [qty, setQty] = useState(0);
@@ -12,6 +13,18 @@ export default function Item({ item, selectProductHandler, changeProductQuantity
         changeProductQuantityHandler(item._id, qty);
         item.selected = true;
         selectProductHandler(item);
+        AsyncStorage.getItem('selectedItems')
+            .then((selectedItems) => {
+                let  items = selectedItems ? JSON.parse(selectedItems) : [];
+                items = items.filter(x => x._id !== item._id);
+
+                if(item.quantity !== 0) items.push(item);
+                console.log(items);
+                AsyncStorage.setItem('selectedItems', JSON.stringify(items))
+                    .then(res => res)
+                    .catch(err => console.log(`An error occured while trying to SET the selected items! ${err.message}`))
+            })
+            .catch(err => console.log(`An error occured while trying to GET the selected items! ${err.message}`))
         return setQty(0);
     }
 
@@ -48,7 +61,6 @@ export default function Item({ item, selectProductHandler, changeProductQuantity
                         style={styles.typeField}
                         onChangeText={quantityChangeHandler}
                         autoFocus={true}
-                        // onBlur={productBlurHandler}
 
                     />
                     <Pressable style={styles.buttonContainer} onPress={confirmClickHandler}>
