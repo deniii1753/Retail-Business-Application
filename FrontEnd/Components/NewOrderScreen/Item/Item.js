@@ -15,11 +15,10 @@ export default function Item({ item, selectProductHandler, changeProductQuantity
         selectProductHandler(item);
         AsyncStorage.getItem('selectedItems')
             .then((selectedItems) => {
-                let  items = selectedItems ? JSON.parse(selectedItems) : [];
+                let items = selectedItems ? JSON.parse(selectedItems) : [];
                 items = items.filter(x => x._id !== item._id);
 
-                if(item.quantity !== 0) items.push(item);
-                console.log(items);
+                if (item.quantity !== 0) items.push(item);
                 AsyncStorage.setItem('selectedItems', JSON.stringify(items))
                     .then(res => res)
                     .catch(err => console.log(`An error occured while trying to SET the selected items! ${err.message}`))
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     productInfo: {
-        width: (Math.round(Dimensions.get('window').width * 0.8)) - 60, // - 60 (40 pixels app padding and 10 pixels margin from each image - total 60 pixels);
+        width: (Math.round(Dimensions.get('window').width * 0.8)) - 60, // - 60 (40 pixels padding from flatlist and 10 pixels margin from each image - total 60 pixels);
         gap: 10,
         justifyContent: 'flex-start',
     },

@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: StatusBar.currentHeight,
     flex: 1,
-    backgroundColor: '#202020',
+    backgroundColor: '#121212',
     justifyContent: 'flex-start',
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     paddingVertical: 5,
   }
 });

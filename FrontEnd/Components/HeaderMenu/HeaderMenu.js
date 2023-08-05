@@ -23,7 +23,7 @@ export default function HeaderMenu({pageName}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#BFB9B9',
+        backgroundColor: '#1f1f1f',
         width: '100%',
         padding: 10,
         borderRadius: 5,
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
 
     pageName: {
         fontSize: 16,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: '#fff'
     }
 });
