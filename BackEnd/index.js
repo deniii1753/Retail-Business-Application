@@ -1,9 +1,12 @@
 const express = require('express');
+const router = require('./src/router.js');
 require('dotenv').config();
 const { connectDatabase } = require('./config/database.js');
 const PORT = process.env.PORT || 3030;
 
 const app = express();
+
+app.use('/api', router);
 
 connectDatabase()
     .then(() => app.listen(PORT, () => console.log(`Database connected successfully! Server listening on port ${PORT}!`)))
