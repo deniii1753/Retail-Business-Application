@@ -14,7 +14,7 @@ export default function NewOrderScreen() {
             .then(res => res)
             .catch(err => console.log(`An error occured while trying to SET the selected items! ${err.message}`))
     }, [])
-    
+
     function selectProductHandler(item) {
 
         return setProducts((oldItems) => {
@@ -31,7 +31,11 @@ export default function NewOrderScreen() {
         return setProducts((oldItems) => {
             return oldItems.map(x => {
                 if (x._id === productId) {
-                    x.quantity = Number(newValue);
+                    if (isNaN(Number(newValue))) {
+                        x.quantity = 0
+                    } else {
+                        x.quantity = Number(newValue);
+                    }
                 }
                 return x;
             })
@@ -75,10 +79,7 @@ export default function NewOrderScreen() {
                 <View style={styles.orderCompleteContainer}>
                     <View style={styles.textContainer}>
                         <Text style={styles.totalText}>Общо: </Text>
-                        <Text style={styles.totalPrice}>{(chosenProducts.reduce((acc, x) => {
-                            acc += x.price * x.quantity;
-                            return acc;
-                        }, 0)).toFixed(2)}лв.</Text>
+                        <Text style={styles.totalPrice}>{(chosenProducts.reduce((acc, x) => acc += x.price * x.quantity, 0)).toFixed(2)}лв.</Text>
                     </View>
                     <Pressable style={styles.continueButtonContainer}>
                         <Text style={styles.completeButtonText}>Продължи към приключване</Text>
