@@ -1,3 +1,5 @@
+const Product = require('../models/Product.js');
+
 exports.addProduct = (product) => {
     const newProduct = new Product({
         name: product.name,
@@ -8,3 +10,6 @@ exports.addProduct = (product) => {
     return newProduct.save();
 }
 
+exports.getProducts = () => {
+    return Product.find({});
+}

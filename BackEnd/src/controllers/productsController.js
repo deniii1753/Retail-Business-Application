@@ -11,5 +11,13 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.post('/', async (req, res, next) => {
+    try {
+        const product = await productService.addProduct(req.body);
+        res.status(201).json(product);
+    } catch (err) {
+        next(err);
+    }
+} )
 
 module.exports = router;
