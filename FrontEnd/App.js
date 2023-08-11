@@ -5,6 +5,7 @@ import * as SystemUI from 'expo-system-ui';
 
 import HomeScreen from './Components/HomeScreen/HomeScreen';
 import NewOrderScreen from './Components/NewOrderScreen/NewOrderScreen';
+import ClientsScreen from './Components/ClientsScreen/ClientsScreen';
 
 SystemUI.setBackgroundColorAsync('#202020')
   .catch(err => console.log(`error: ${err.message}`));
@@ -24,6 +25,7 @@ export default function App() {
 
         <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='NewOrder' component={NewOrderScreen} />
+        <Stack.Screen name='Clients' component={ClientsScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

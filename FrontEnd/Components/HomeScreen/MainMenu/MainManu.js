@@ -14,7 +14,7 @@ export default function MainMenu() {
                 <Image source={require('../../../assets/new-order.png')} style={styles.icon} />
                 <Text>Нова Поръчка</Text>
             </Pressable>
-            <Pressable style={styles.containerWrapper}>
+            <Pressable style={styles.containerWrapper} onPress={redirectUser.bind(this, 'Clients')}>
                 <Image source={require('../../../assets/clients.png')} style={styles.icon} />
                 <Text>Клиенти</Text>
             </Pressable>

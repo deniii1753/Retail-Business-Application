@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Item({ item, selectProductHandler, changeProductQuantityHandler, updateAsyncStorage }) {
     const [qty, setQty] = useState(0);
