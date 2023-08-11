@@ -30,7 +30,7 @@ export default function Item({ item, selectProductHandler, changeProductQuantity
                 <View style={[styles.container, item.selected && styles.selectedProduct, item.quantity > 0 && styles.selectedProduct]}>
                     <Image source={{ uri: item.imageURL }} style={styles.image} />
                     <View style={styles.productInfo}>
-                        <Text style={[styles.productTitle, styles.productText]}>{item.productName}</Text>
+                        <Text style={[styles.productTitle, styles.productText]}>{item.name}</Text>
                         <View style={styles.description}>
                             <Text style={styles.productDescriptionText}>Цена: {(item.price).toFixed(2)}лв.</Text>
                             <Text style={styles.productDescriptionText}>Количество: {item.quantity}</Text>

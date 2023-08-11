@@ -3,16 +3,25 @@ import HeaderMenu from '../HeaderMenu/HeaderMenu';
 import { useEffect, useState } from "react";
 import Item from "./Item/Item";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { getProducts } from "../../services/productService";
 
 export default function NewOrderScreen() {
-    const [products, setProducts] = useState(productss);
+    const [products, setProducts] = useState([]);
     const [chosenProducts, setChosenProducts] = useState([]);
 
     useEffect(() => {
+        getProducts()
+            .then(data => {
+                setProducts(data.map(x => {
+                    x.selected = false;
+                    x.quantity = 0;
+                    return x;
+                }))
+            })
+            .catch(err => console.log(`An error occured while trying to GET the product list! \n${err.message}`));
         AsyncStorage.setItem('selectedItems', '')
             .then(res => res)
-            .catch(err => console.log(`An error occured while trying to SET the selected items! ${err.message}`))
+            .catch(err => console.log(`An error occured while trying to SET the selected items! \n${err.message}`))
     }, [])
 
     function selectProductHandler(item) {
@@ -50,15 +59,18 @@ export default function NewOrderScreen() {
                 if (item.quantity !== 0) items.push(item);
                 AsyncStorage.setItem('selectedItems', JSON.stringify(items))
                     .then(() => setChosenProducts(items))
-                    .catch(err => console.log(`An error occured while trying to SET the selected items! ${err.message}`))
+                    .catch(err => console.log(`An error occured while trying to SET the selected items! \n${err.message}`))
             })
-            .catch(err => console.log(`An error occured while trying to GET the selected items! ${err.message}`))
+            .catch(err => console.log(`An error occured while trying to GET the selected items! \n${err.message}`))
     }
 
     return (
         <>
             <HeaderMenu pageName={'Нова Поръчка'} />
 
+              {/* TO DO */}
+            {/* Search bar */}
+            
             <FlatList
                 data={products}
                 renderItem={({ item }) => {
