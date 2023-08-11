@@ -5,9 +5,6 @@ import { Dimensions, FlatList, Image, StyleSheet, Text, View } from "react-nativ
 
 export default function ClientsScreen() {
     const [clients, setClients] = useState([]);
-    console.log(Math.round(Dimensions.get('window').width * 0.9) - 55);
-    console.log('Full Width: ' + Math.round(Dimensions.get('window').width));
-    console.log(Math.round(Dimensions.get('window').width * 0.9));
     useEffect(() => {
         setClients(clientss);
     }, [])
@@ -16,7 +13,9 @@ export default function ClientsScreen() {
             <HeaderMenu pageName={'Клиенти'} />
 
             {/* TO DO */}
+            
             {/* Search bar */}
+            {/* More information about store when store is clicked */}
 
             <FlatList
                 data={clients}
